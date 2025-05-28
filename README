@@ -1,14 +1,14 @@
-This archive contains code used to reproduce the results.
+This archive contains code used to reproduce the results for "Integral Resistance of Block Ciphers with Key-Whitening by Modular Addition" paper.
 
-The main methods and approaches in code for finding division trails and counting them were taken from "Lower Bounds on the Degree of Block Ciphers" (https://eprint.iacr.org/2020/1051) 
+The main methods and approaches in the code for finding division trails and counting them were taken from "Lower Bounds on the Degree of Block Ciphers" (https://eprint.iacr.org/2020/1051) 
 
-- "main.cpp" is the code to reproduce our results in Table 1. We checked number of rounds to ensure integral resistance(IR) for GIFT-64, SKINNY-64 and PRESENT. There were considered two cases of pre-/post-whitening, when t=1, i.e. full-state modular addition, and t=2, i.e. modular addition word-wisely for 2 words. For each cipher and value of t, "main.cpp" creates a "{Cipher}_t_{value of t}.txt file, where the results are saved:
+- "main.cpp" is the code to reproduce our results in Table 1. We checked a number of rounds to ensure integral resistance(IR) for GIFT-64, SKINNY-64, and PRESENT. There were considered two cases of pre-/post-whitening, when t=1, i.e. full-state modular addition, and t=2, i.e. modular addition word-wisely for 2 words. For each cipher and value of t, "main.cpp" creates a "{Cipher}_t_{value of t}.txt file, where the results are saved:
 	- For t=1 - input, output and key pattern for which monomial coefficient is not equal to zero and it is enough to prove IR. 
-	- For t=2 - input, output and key patterns to build full rank integral resistant matrix 4x4. Note, that for most of the cases it is diagonal. The reason is that key, 	for which an odd number of division trails (for fixed input/output) was found, gives for other input/output pairs 0 trails or even number. 
+	- For t=2 - input, output and key patterns to build full rank integral resistant matrix 4x4. Note that for most cases it is diagonal. The reason is that the key, for which an odd number of division trails (for fixed input/output) was found, gives for other input/output pairs 0 trails or an even number. 
 	Note, that typically it works like that: for one of 4 input/Output pairs it finds key pattern for which number of division trails is odd. Then, we put 1 for this one 	entry (it will be diagonal element), then we check parity of trails for other pairs and same key pattern (usually parity is 0, and we fill other rows entries by 0, so 	we have unity basis vector row). Next we repeat the same with next diagonal element and next row, 3 more times.
 
 
-Note, we check IR not only for "bound" number of rounds, but also for numbers of rounds up to IR bounds given in "Strong and Tight Security Guarantees against Integral Distinguishers"(https://eprint.iacr.org/2021/1502). For example, our bound for GIFT and t=1 is 9 rounds then we check that 10 and 11 rounds are also resistant, as beginning from 12 rounds bounds IR is proven by mentioned paper.
+Note that we check IR not only for the "bound" number of rounds but also for the number of rounds up to the IR bounds given in "Strong and Tight Security Guarantees against Integral Distinguishers"(https://eprint.iacr.org/2021/1502). For example, our bound for GIFT and t=1 is 9 rounds, so we check that 10 and 11 rounds are also resistant, as the mentioned paper proves that IR is proven beginning from 12 rounds bounds.
 
 An installation of the MILP optimizer Gurobi is necessary (https://www.gurobi.com/)
 The GUROBI_HOME environment variable should be set according to the Gurobi documentation.
@@ -19,5 +19,3 @@ This implementation was tested using :
 g++ version 13.3.0 ( Ubuntu 24.04.1 LTS )
 SageMath version 10.4, Release Date: 2024-07-19
 Gurobi 12.0.0
-
-No guarantees are given when using different versions, but we do not expect any issue.
