@@ -21,7 +21,6 @@
 #include "gurobi_c++.h"
 #include "configBC.hpp"
 #include "customCallback.hpp"
-#include "SmallMatrix.hpp"
 
 /*
 	Most of the stuff is happening here.
